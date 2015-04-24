@@ -1,0 +1,21 @@
+﻿<Window x:Class="Alsolos.Commons.Wpf.UnitTests.Controls.FindInSelector.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:commons="http://alsolos.ch/Commons/Wpf"
+        xmlns:findInSelector="clr-namespace:Alsolos.Commons.Wpf.UnitTests.Controls.FindInSelector"
+        Title="MainWindow" Height="256" Width="512">
+
+    <Window.DataContext>
+        <findInSelector:MainViewModel/>
+    </Window.DataContext>
+
+    <DockPanel>
+
+        <TextBlock DockPanel.Dock="Bottom" Text="{Binding SelectedItem}" Margin="8"/>
+
+        <commons:FindInSelector FilterCallback="{Binding Filter}" Margin="8">
+            <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True" SelectionChanged="OnSelectorSelectionChanged"/>
+        </commons:FindInSelector>
+
+    </DockPanel>
+</Window>
