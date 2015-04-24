@@ -56,6 +56,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="IsBusy" Value="{Binding BusyHelper.IsBusy}"/>
+        <Setter Property="Message" Value="{Binding BusyHelper.Message}"/>
     </Style>
 
 </ResourceDictionary>
