@@ -8,6 +8,7 @@ using System.Windows.Markup;
 [assembly: AssemblyTitle("Alsolos.Commons.Wpf")]
 [assembly: AssemblyProduct("Alsolos Commons WPF")]
 [assembly: AssemblyDescription("Common types for WPF / MVVM applications.")]
+[assembly: AssemblyCompany("Heiner Suter")]
 [assembly: AssemblyCopyright("Copyright © Heiner Suter 2015")]
 [assembly: AssemblyVersion("1.1.*")]
 [assembly: CLSCompliant(true)]

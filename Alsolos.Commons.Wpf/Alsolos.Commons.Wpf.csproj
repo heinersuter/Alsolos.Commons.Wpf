@@ -164,6 +164,7 @@
   <ItemGroup>
     <None Include="Alsolos.Commons.Wpf.snk" />
     <None Include="Controls\Progress\PositionCalc.xlsx" />
+    <None Include="CreateNuGetPackage.bat" />
     <None Include="snippets\bfprop.snippet" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
