@@ -5,3 +5,4 @@ obj
 *.InstallLog
 */packages/
 !*/packages/repositories.config
+/Alsolos.Commons.Wpf/nuget/*.nupkg
