@@ -38,48 +38,6 @@
             remove { _displayedWrappers.CollectionChanged -= value; }
         }
 
-        public IEnumerator<HierarchicalDataGridItemWrapper> GetEnumerator()
-        {
-            return _displayedWrappers.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public HierarchicalDataGridItemWrapper this[int index]
-        {
-            get { return _displayedWrappers[index]; }
-            set { _displayedWrappers[index] = value; }
-        }
-
-        object IList.this[int index]
-        {
-            get { return _displayedWrappers[index]; }
-            set { _displayedWrappers[index] = (HierarchicalDataGridItemWrapper)value; }
-        }
-
-        public int IndexOf(HierarchicalDataGridItemWrapper item)
-        {
-            return _displayedWrappers.IndexOf(item);
-        }
-
-        public int IndexOf(object value)
-        {
-            return IndexOf((HierarchicalDataGridItemWrapper)value);
-        }
-
-        public bool Contains(HierarchicalDataGridItemWrapper item)
-        {
-            return _displayedWrappers.Contains(item);
-        }
-
-        public bool Contains(object value)
-        {
-            return Contains((HierarchicalDataGridItemWrapper)value);
-        }
-
         public int Count
         {
             get { return _displayedWrappers.Count; }
@@ -103,6 +61,58 @@
         public bool IsFixedSize
         {
             get { return false; }
+        }
+
+        public ICommand ExpandAllCommand
+        {
+            get { return _expandAllCommand; }
+        }
+
+        public ICommand CollapseAllCommand
+        {
+            get { return _collapseAllCommand; }
+        }
+
+        public HierarchicalDataGridItemWrapper this[int index]
+        {
+            get { return _displayedWrappers[index]; }
+            set { _displayedWrappers[index] = value; }
+        }
+
+        object IList.this[int index]
+        {
+            get { return _displayedWrappers[index]; }
+            set { _displayedWrappers[index] = (HierarchicalDataGridItemWrapper)value; }
+        }
+
+        public IEnumerator<HierarchicalDataGridItemWrapper> GetEnumerator()
+        {
+            return _displayedWrappers.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int IndexOf(HierarchicalDataGridItemWrapper item)
+        {
+            return _displayedWrappers.IndexOf(item);
+        }
+
+        public int IndexOf(object value)
+        {
+            return IndexOf((HierarchicalDataGridItemWrapper)value);
+        }
+
+        public bool Contains(HierarchicalDataGridItemWrapper item)
+        {
+            return _displayedWrappers.Contains(item);
+        }
+
+        public bool Contains(object value)
+        {
+            return Contains((HierarchicalDataGridItemWrapper)value);
         }
 
         public void CopyTo(HierarchicalDataGridItemWrapper[] array, int arrayIndex)
@@ -155,16 +165,6 @@
         {
             var wrapper = _displayedWrappers[index];
             RemoveWrapperRecursively(wrapper);
-        }
-
-        public ICommand ExpandAllCommand
-        {
-            get { return _expandAllCommand; }
-        }
-
-        public ICommand CollapseAllCommand
-        {
-            get { return _collapseAllCommand; }
         }
 
         public void ExpandAll()

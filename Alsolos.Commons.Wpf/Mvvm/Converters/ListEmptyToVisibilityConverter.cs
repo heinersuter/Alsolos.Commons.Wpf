@@ -15,6 +15,7 @@
         }
 
         public Visibility EmptyVisibility { get; set; }
+
         public Visibility NotEmptyVisibility { get; set; }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

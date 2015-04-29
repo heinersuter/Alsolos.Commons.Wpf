@@ -13,10 +13,7 @@
 
         public new Uri Source
         {
-            get
-            {
-                return _sourceUri;
-            }
+            get { return _sourceUri; }
             set
             {
                 _sourceUri = new Uri(value.OriginalString, UriKind.RelativeOrAbsolute);

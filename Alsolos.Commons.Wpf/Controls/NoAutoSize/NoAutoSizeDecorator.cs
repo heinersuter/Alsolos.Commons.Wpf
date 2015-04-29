@@ -9,21 +9,21 @@
     /// </summary>
     public class NoAutoSizeDecorator : Decorator
     {
+        public static readonly DependencyProperty KeepWidthProperty = DependencyProperty.Register(
+            "KeepWidth", typeof(bool), typeof(NoAutoSizeDecorator), new PropertyMetadata(false));
+
+        public static readonly DependencyProperty KeepHeightProperty = DependencyProperty.Register(
+            "KeepHeight", typeof(bool), typeof(NoAutoSizeDecorator), new PropertyMetadata(false));
+
         private static readonly Size _infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
         private Size _lastFinalSize = _infinitySize;
-
-        public static readonly DependencyProperty KeepWidthProperty = DependencyProperty.Register(
-            "KeepWidth", typeof(bool), typeof(NoAutoSizeDecorator), new PropertyMetadata(false));
 
         public bool KeepWidth
         {
             get { return (bool)GetValue(KeepWidthProperty); }
             set { SetValue(KeepWidthProperty, value); }
         }
-
-        public static readonly DependencyProperty KeepHeightProperty = DependencyProperty.Register(
-            "KeepHeight", typeof(bool), typeof(NoAutoSizeDecorator), new PropertyMetadata(false));
 
         public bool KeepHeight
         {

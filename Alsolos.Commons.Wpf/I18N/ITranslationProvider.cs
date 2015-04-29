@@ -5,8 +5,8 @@
 
     public interface ITranslationProvider
     {
-        object Translate(string key);
-
         IEnumerable<CultureInfo> Languages { get; }
+
+        object Translate(string key);
     }
 }

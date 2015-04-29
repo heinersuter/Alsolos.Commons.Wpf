@@ -14,12 +14,12 @@
             PropertyChanged += OnPropertyChanged;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
         public BackingFields BackingFields
         {
             get { return PropertyHelper.CreateIfNeeded(ref _backingFields, () => new BackingFields(RaisePropertyChanged)); }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public T CreateIfNeeded<T>(Func<T> newInstanceCreateMethod, [CallerMemberName] string propertyName = null)
         {

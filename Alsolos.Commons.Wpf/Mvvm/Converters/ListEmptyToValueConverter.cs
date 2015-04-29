@@ -8,6 +8,7 @@
     public class ListEmptyToValueConverter : ValueConverter
     {
         public object EmptyValue { get; set; }
+
         public object NotEmptyValue { get; set; }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

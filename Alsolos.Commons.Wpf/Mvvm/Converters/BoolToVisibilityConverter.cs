@@ -13,6 +13,7 @@
         }
 
         public Visibility TrueVisibility { get; set; }
+
         public Visibility FalseVisibility { get; set; }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

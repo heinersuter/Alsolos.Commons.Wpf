@@ -17,6 +17,8 @@
             TranslationProvider = new ResxTranslationProvider(assembly.GetName().Name + ".Properties.Texts", assembly);
         }
 
+        public event EventHandler LanguageChanged;
+
         public static TranslationManager Instance
         {
             get { return _translationManager ?? (_translationManager = new TranslationManager()); }
@@ -44,8 +46,6 @@
         }
 
         public ITranslationProvider TranslationProvider { get; set; }
-
-        public event EventHandler LanguageChanged;
 
         public string Translate(string key)
         {

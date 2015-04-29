@@ -17,22 +17,6 @@
             Children = new ObservableCollection<HierarchicalDataGridItemWrapper>();
         }
 
-        public static HierarchicalDataGridItemWrapper CreateRecursively(IHierarchicalDataGridItem item)
-        {
-            return CreateRecursively(item, null);
-        }
-
-        public static HierarchicalDataGridItemWrapper CreateRecursively(IHierarchicalDataGridItem item, HierarchicalDataGridItemWrapper parent)
-        {
-            var wrapper = new HierarchicalDataGridItemWrapper(item, parent);
-            foreach (var childItem in item.Children)
-            {
-                var childWrapper = CreateRecursively(childItem, wrapper);
-                wrapper.Children.Add(childWrapper);
-            }
-            return wrapper;
-        }
-
         public IHierarchicalDataGridItem Value { get; private set; }
 
         public HierarchicalDataGridItemWrapper Parent { get; private set; }
@@ -57,6 +41,22 @@
         {
             get { return BackingFields.GetValue<bool>(); }
             set { BackingFields.SetValue(value); }
+        }
+
+        public static HierarchicalDataGridItemWrapper CreateRecursively(IHierarchicalDataGridItem item)
+        {
+            return CreateRecursively(item, null);
+        }
+
+        public static HierarchicalDataGridItemWrapper CreateRecursively(IHierarchicalDataGridItem item, HierarchicalDataGridItemWrapper parent)
+        {
+            var wrapper = new HierarchicalDataGridItemWrapper(item, parent);
+            foreach (var childItem in item.Children)
+            {
+                var childWrapper = CreateRecursively(childItem, wrapper);
+                wrapper.Children.Add(childWrapper);
+            }
+            return wrapper;
         }
 
         public void ExpandRecursively()

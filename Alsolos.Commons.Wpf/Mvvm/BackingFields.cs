@@ -55,26 +55,6 @@
             return GetValueAndObserve(propertyName, initializeFunction, GetObserver(propertyName));
         }
 
-        private T GetValueAndObserve<T>(string propertyName, Func<T> initializeFunction, PropertyChangedEventHandler observer) where T : class, INotifyPropertyChanged
-        {
-            object value;
-            if (_properties.TryGetValue(propertyName, out value))
-            {
-                return (T)value;
-            }
-            if (initializeFunction != null)
-            {
-                var initialValue = initializeFunction.Invoke();
-                if (initialValue != null)
-                {
-                    initialValue.PropertyChanged += observer;
-                }
-                _properties[propertyName] = initialValue;
-                return initialValue;
-            }
-            return default(T);
-        }
-
         public DelegateCommand GetCommand(Action executeMethod, [CallerMemberName] string propertyName = null)
         {
             return GetCommand(propertyName, executeMethod, null);
@@ -85,15 +65,6 @@
             return GetCommand(propertyName, executeMethod, canExecuteMethod);
         }
 
-        private DelegateCommand GetCommand(string propertyName, Action executeMethod, Func<bool> canExecuteMethod)
-        {
-            if (canExecuteMethod == null)
-            {
-                canExecuteMethod = () => true;
-            }
-            return GetValue(propertyName, () => new DelegateCommand(executeMethod, canExecuteMethod));
-        }
-
         public DelegateCommand<T> GetCommand<T>(Action<T> executeMethod, [CallerMemberName] string propertyName = null)
         {
             return GetCommand(propertyName, executeMethod, null);
@@ -102,15 +73,6 @@
         public DelegateCommand<T> GetCommand<T>(Action<T> executeMethod, Func<T, bool> canExecuteMethod, [CallerMemberName] string propertyName = null)
         {
             return GetCommand(propertyName, executeMethod, canExecuteMethod);
-        }
-
-        private DelegateCommand<T> GetCommand<T>(string propertyName, Action<T> executeMethod, Func<T, bool> canExecuteMethod)
-        {
-            if (canExecuteMethod == null)
-            {
-                canExecuteMethod = value => true;
-            }
-            return GetValue(propertyName, () => new DelegateCommand<T>(executeMethod, canExecuteMethod));
         }
 
         public bool SetValue<T>(T value, [CallerMemberName] string propertyName = null)
@@ -148,6 +110,44 @@
         public bool SetValueAndObserve<T>(T value, [CallerMemberName] string propertyName = null) where T : class, INotifyPropertyChanged
         {
             return SetValueAndObserve(propertyName, value, GetObserver(propertyName));
+        }
+
+        private T GetValueAndObserve<T>(string propertyName, Func<T> initializeFunction, PropertyChangedEventHandler observer) where T : class, INotifyPropertyChanged
+        {
+            object value;
+            if (_properties.TryGetValue(propertyName, out value))
+            {
+                return (T)value;
+            }
+            if (initializeFunction != null)
+            {
+                var initialValue = initializeFunction.Invoke();
+                if (initialValue != null)
+                {
+                    initialValue.PropertyChanged += observer;
+                }
+                _properties[propertyName] = initialValue;
+                return initialValue;
+            }
+            return default(T);
+        }
+
+        private DelegateCommand<T> GetCommand<T>(string propertyName, Action<T> executeMethod, Func<T, bool> canExecuteMethod)
+        {
+            if (canExecuteMethod == null)
+            {
+                canExecuteMethod = value => true;
+            }
+            return GetValue(propertyName, () => new DelegateCommand<T>(executeMethod, canExecuteMethod));
+        }
+
+        private DelegateCommand GetCommand(string propertyName, Action executeMethod, Func<bool> canExecuteMethod)
+        {
+            if (canExecuteMethod == null)
+            {
+                canExecuteMethod = () => true;
+            }
+            return GetValue(propertyName, () => new DelegateCommand(executeMethod, canExecuteMethod));
         }
 
         private bool SetValueAndObserve<T>(string propertyName, T value, PropertyChangedEventHandler observer) where T : class, INotifyPropertyChanged

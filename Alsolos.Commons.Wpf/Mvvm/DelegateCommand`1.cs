@@ -5,17 +5,17 @@
     using System.Windows.Input;
     using System.Windows.Threading;
 
-    public class DelegateCommand : ICommand
+    public class DelegateCommand<T> : ICommand
     {
-        private readonly Action _executeAction;
-        private readonly Func<bool> _canExecute;
+        private readonly Action<T> _executeAction;
+        private readonly Func<T, bool> _canExecute;
 
-        public DelegateCommand(Action execute)
+        public DelegateCommand(Action<T> execute)
             : this(execute, null)
         {
         }
 
-        public DelegateCommand(Action execute, Func<bool> canExecute)
+        public DelegateCommand(Action<T> execute, Func<T, bool> canExecute)
         {
             _executeAction = execute;
             _canExecute = canExecute;
@@ -34,12 +34,12 @@
                 return true;
             }
 
-            return _canExecute.Invoke();
+            return _canExecute.Invoke((T)parameter);
         }
 
         public void Execute(object parameter)
         {
-            _executeAction.Invoke();
+            _executeAction.Invoke((T)parameter);
         }
 
         public void RaiseCanExecuteChanged()

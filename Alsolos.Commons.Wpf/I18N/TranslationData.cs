@@ -7,6 +7,7 @@
     public class TranslationData : IWeakEventListener, INotifyPropertyChanged, IDisposable
     {
         private readonly string _key;
+
         private readonly string _stringFormat;
 
         public TranslationData(string key, string stringFormat)
@@ -20,6 +21,8 @@
         {
             Dispose(false);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public object Value
         {
@@ -64,7 +67,5 @@
                 PropertyChanged(this, new PropertyChangedEventArgs("Value"));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

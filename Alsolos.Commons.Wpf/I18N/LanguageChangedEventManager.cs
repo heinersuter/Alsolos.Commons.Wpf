@@ -5,6 +5,21 @@
 
     public class LanguageChangedEventManager : WeakEventManager
     {
+        private static LanguageChangedEventManager CurrentManager
+        {
+            get
+            {
+                var managerType = typeof(LanguageChangedEventManager);
+                var manager = (LanguageChangedEventManager)GetCurrentManager(managerType);
+                if (manager == null)
+                {
+                    manager = new LanguageChangedEventManager();
+                    SetCurrentManager(managerType, manager);
+                }
+                return manager;
+            }
+        }
+
         public static void AddListener(TranslationManager source, IWeakEventListener listener)
         {
             CurrentManager.ProtectedAddListener(source, listener);
@@ -30,21 +45,6 @@
         private void OnLanguageChanged(object sender, EventArgs e)
         {
             DeliverEvent(sender, e);
-        }
-
-        private static LanguageChangedEventManager CurrentManager
-        {
-            get
-            {
-                var managerType = typeof(LanguageChangedEventManager);
-                var manager = (LanguageChangedEventManager)GetCurrentManager(managerType);
-                if (manager == null)
-                {
-                    manager = new LanguageChangedEventManager();
-                    SetCurrentManager(managerType, manager);
-                }
-                return manager;
-            }
         }
     }
 }

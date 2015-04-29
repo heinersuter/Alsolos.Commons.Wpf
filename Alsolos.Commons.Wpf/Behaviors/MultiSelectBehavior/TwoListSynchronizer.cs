@@ -75,6 +75,12 @@ namespace Alsolos.Commons.Wpf.Behaviors.MultiselectBehavior
             }
         }
 
+        private static void MoveItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
+        {
+            RemoveItems(list, e, converter);
+            AddItems(list, e, converter);
+        }
+
         private static void AddItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
         {
             var itemCount = e.NewItems.Count;
@@ -92,6 +98,24 @@ namespace Alsolos.Commons.Wpf.Behaviors.MultiselectBehavior
                     list.Insert(insertionPoint, converter(e.NewItems[i]));
                 }
             }
+        }
+
+        private static void RemoveItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
+        {
+            var itemCount = e.OldItems.Count;
+
+            // for the number of items being removed, remove the item from the Old Starting Index
+            // (this will cause following items to be shifted down to fill the hole).
+            for (var i = 0; i < itemCount; i++)
+            {
+                list.RemoveAt(e.OldStartingIndex);
+            }
+        }
+
+        private static void ReplaceItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
+        {
+            RemoveItems(list, e, converter);
+            AddItems(list, e, converter);
         }
 
         private object ConvertFromMasterToTarget(object masterListItem)
@@ -125,15 +149,7 @@ namespace Alsolos.Commons.Wpf.Behaviors.MultiselectBehavior
                 case NotifyCollectionChangedAction.Reset:
                     UpdateListsFromSource(sourceList);
                     break;
-                default:
-                    break;
             }
-        }
-
-        private static void MoveItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
-        {
-            RemoveItems(list, e, converter);
-            AddItems(list, e, converter);
         }
 
         private void PerformActionOnAllLists(ChangeListAction action, IList sourceList, NotifyCollectionChangedEventArgs collectionChangedArgs)
@@ -153,24 +169,6 @@ namespace Alsolos.Commons.Wpf.Behaviors.MultiselectBehavior
             StopListeningForChangeEvents(list);
             action(list, collectionChangedArgs, converter);
             ListenForChangeEvents(list);
-        }
-
-        private static void RemoveItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
-        {
-            var itemCount = e.OldItems.Count;
-
-            // for the number of items being removed, remove the item from the Old Starting Index
-            // (this will cause following items to be shifted down to fill the hole).
-            for (var i = 0; i < itemCount; i++)
-            {
-                list.RemoveAt(e.OldStartingIndex);
-            }
-        }
-
-        private static void ReplaceItems(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter)
-        {
-            RemoveItems(list, e, converter);
-            AddItems(list, e, converter);
         }
 
         private void SetListValuesFromSource(IList sourceList, IList targetList, Converter<object, object> converter)

@@ -107,6 +107,7 @@
     <Compile Include="Mvvm\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Mvvm\Converters\StringToSingleLineStringConverter.cs" />
     <Compile Include="Mvvm\Converters\ValueConverter.cs" />
+    <Compile Include="Mvvm\DelegateCommand`1.cs" />
     <Compile Include="Resources\SharedResourceDictionary.cs" />
     <Compile Include="Utils\ComparisonComparer.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />

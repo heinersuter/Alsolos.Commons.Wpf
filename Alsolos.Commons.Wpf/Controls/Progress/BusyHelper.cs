@@ -30,13 +30,6 @@
             return new BusyState(Leave);
         }
 
-        private void Leave()
-        {
-            _stack.Pop();
-            Message = _stack.Count > 0 ? _stack.Peek() : null;
-            IsBusy = _stack.Count > 0;
-        }
-
         protected virtual void OnIsBusyChanged(bool value)
         {
             var handler = IsBusyChanged;
@@ -44,6 +37,13 @@
             {
                 handler.Invoke(this, new ValueEventArgs<bool>(value));
             }
+        }
+
+        private void Leave()
+        {
+            _stack.Pop();
+            Message = _stack.Count > 0 ? _stack.Peek() : null;
+            IsBusy = _stack.Count > 0;
         }
     }
 }

@@ -11,6 +11,15 @@
 
     public class FindInSelector : ContentControl
     {
+        public static readonly DependencyProperty SearchTextProperty = DependencyProperty.Register(
+            "SearchText", typeof(string), typeof(FindInSelector), new FrameworkPropertyMetadata(OnSearchTextChanged));
+
+        public static readonly DependencyProperty FilterCallbackProperty = DependencyProperty.Register(
+            "FilterCallback", typeof(Func<object, string, bool>), typeof(FindInSelector), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty FindNextCommandProperty = DependencyProperty.Register(
+            "FindNextCommand", typeof(ICommand), typeof(FindInSelector), new PropertyMetadata(null));
+
         private Selector _selector;
         private List<object> _foundItems;
 
@@ -24,26 +33,17 @@
             FindNextCommand = new DelegateCommand(FindNext);
         }
 
-        public static readonly DependencyProperty SearchTextProperty = DependencyProperty.Register(
-            "SearchText", typeof(string), typeof(FindInSelector), new FrameworkPropertyMetadata(OnSearchTextChanged));
-
         public string SearchText
         {
             get { return (string)GetValue(SearchTextProperty); }
             set { SetValue(SearchTextProperty, value); }
         }
 
-        public static readonly DependencyProperty FilterCallbackProperty = DependencyProperty.Register(
-            "FilterCallback", typeof(Func<object, string, bool>), typeof(FindInSelector), new PropertyMetadata(null));
-
         public Func<object, string, bool> FilterCallback
         {
             get { return (Func<object, string, bool>)GetValue(FilterCallbackProperty); }
             set { SetValue(FilterCallbackProperty, value); }
         }
-
-        public static readonly DependencyProperty FindNextCommandProperty = DependencyProperty.Register(
-            "FindNextCommand", typeof(ICommand), typeof(FindInSelector), new PropertyMetadata(null));
 
         public ICommand FindNextCommand
         {

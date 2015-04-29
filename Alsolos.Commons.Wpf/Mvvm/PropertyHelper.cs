@@ -30,7 +30,8 @@
 
         public static T CreateIfNeeded<T>(ref T field, Func<T> newInstanceCreateMethod) where T : class
         {
-            if (newInstanceCreateMethod == null) {
+            if (newInstanceCreateMethod == null)
+            {
                 return default(T);
             }
             return field ?? (field = newInstanceCreateMethod.Invoke());

@@ -6,6 +6,7 @@
     public class BoolToValueConverter : ValueConverter
     {
         public object TrueValue { get; set; }
+
         public object FalseValue { get; set; }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

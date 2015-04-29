@@ -15,6 +15,21 @@ namespace Alsolos.Commons.Wpf.Behaviors.MultiselectBehavior
             _multiSelector = selector;
         }
 
+        public static IList GetSelectedItemsCollection(Selector selector)
+        {
+            var multiSelector = selector as MultiSelector;
+            if (multiSelector != null)
+            {
+                return multiSelector.SelectedItems;
+            }
+            var listBox = selector as ListBox;
+            if (listBox != null)
+            {
+                return listBox.SelectedItems;
+            }
+            throw new InvalidOperationException("Target object has no SelectedItems property to bind.");
+        }
+
         public void StartSynchronizingList()
         {
             var list = MultiselectBehaviour.GetSelectedItems(_multiSelector);
@@ -29,21 +44,6 @@ namespace Alsolos.Commons.Wpf.Behaviors.MultiselectBehavior
         public void StopSynchronizing()
         {
             _synchronizer.StopSynchronizing();
-        }
-
-        public static IList GetSelectedItemsCollection(Selector selector)
-        {
-            var multiSelector = selector as MultiSelector;
-            if (multiSelector != null)
-            {
-                return multiSelector.SelectedItems;
-            }
-            var listBox = selector as ListBox;
-            if (listBox != null)
-            {
-                return listBox.SelectedItems;
-            }
-            throw new InvalidOperationException("Target object has no SelectedItems property to bind.");
         }
     }
 }

@@ -14,6 +14,16 @@
             _resourceManager = new ResourceManager(baseName, assembly);
         }
 
+        public IEnumerable<CultureInfo> Languages
+        {
+            get
+            {
+                // TODO: Resolve the available languages
+                yield return new CultureInfo("de");
+                yield return new CultureInfo("en");
+            }
+        }
+
         public object Translate(string key)
         {
             try
@@ -23,16 +33,6 @@
             catch
             {
                 return null;
-            }
-        }
-
-        public IEnumerable<CultureInfo> Languages
-        {
-            get
-            {
-                // TODO: Resolve the available languages
-                yield return new CultureInfo("de");
-                yield return new CultureInfo("en");
             }
         }
     }

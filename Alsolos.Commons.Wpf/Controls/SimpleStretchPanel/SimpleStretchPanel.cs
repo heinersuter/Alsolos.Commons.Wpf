@@ -7,16 +7,16 @@
 
     public class SimpleStretchPanel : ItemsControl
     {
-        static SimpleStretchPanel()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SimpleStretchPanel), new FrameworkPropertyMetadata(typeof(SimpleStretchPanel)));
-        }
-
         public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(
             "Mode",
             typeof(SimpleStretchPanelMode),
             typeof(SimpleStretchPanel),
             new PropertyMetadata(SimpleStretchPanelMode.VerticalStretchCenter, OnModePropertyChanged));
+
+        static SimpleStretchPanel()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SimpleStretchPanel), new FrameworkPropertyMetadata(typeof(SimpleStretchPanel)));
+        }
 
         public SimpleStretchPanelMode Mode
         {

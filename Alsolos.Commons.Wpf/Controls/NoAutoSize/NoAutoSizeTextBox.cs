@@ -9,6 +9,19 @@
     /// </summary>
     public class NoAutoSizeTextBox : TextBox
     {
+        public static readonly DependencyProperty KeepWidthProperty = DependencyProperty.Register(
+            "KeepWidth", typeof(bool), typeof(NoAutoSizeTextBox), new PropertyMetadata(false));
+
+        public static readonly DependencyProperty KeepHeightProperty = DependencyProperty.Register(
+            "KeepHeight", typeof(bool), typeof(NoAutoSizeTextBox), new PropertyMetadata(true));
+
+        public static readonly DependencyProperty AutoToolTipProperty = DependencyProperty.Register(
+            "AutoToolTip", typeof(bool), typeof(NoAutoSizeTextBox), new PropertyMetadata(true));
+
+        private static readonly Size _infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
+
+        private Size _lastFinalSize = _infinitySize;
+
         static NoAutoSizeTextBox()
         {
             IsEnabledProperty.OverrideMetadata(
@@ -32,30 +45,17 @@
                     }));
         }
 
-        private static readonly Size _infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
-        private Size _lastFinalSize = _infinitySize;
-
-        public static readonly DependencyProperty KeepWidthProperty = DependencyProperty.Register(
-            "KeepWidth", typeof(bool), typeof(NoAutoSizeTextBox), new PropertyMetadata(false));
-
         public bool KeepWidth
         {
             get { return (bool)GetValue(KeepWidthProperty); }
             set { SetValue(KeepWidthProperty, value); }
         }
 
-        public static readonly DependencyProperty KeepHeightProperty = DependencyProperty.Register(
-            "KeepHeight", typeof(bool), typeof(NoAutoSizeTextBox), new PropertyMetadata(true));
-
         public bool KeepHeight
         {
             get { return (bool)GetValue(KeepHeightProperty); }
             set { SetValue(KeepHeightProperty, value); }
         }
-
-        public static readonly DependencyProperty AutoToolTipProperty = DependencyProperty.Register(
-            "AutoToolTip", typeof(bool), typeof(NoAutoSizeTextBox), new PropertyMetadata(true));
 
         public bool AutoToolTip
         {
