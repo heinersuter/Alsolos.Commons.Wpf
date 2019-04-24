@@ -18,7 +18,7 @@
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var areEqual = value == parameter;
+            var areEqual = Equals(value, parameter);
 
             return areEqual ? EqualVisibility : NotEqualVisibility;
         }

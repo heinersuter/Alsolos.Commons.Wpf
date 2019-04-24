@@ -49,7 +49,7 @@
             RaisePropertyChanged(propertyName);
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             var copy = PropertyChanged;
             if (copy != null)
